@@ -66,13 +66,9 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
       box-sizing: border-box;
-      transition: background 0.2s;
-    }
-    .btn-main:active {
-      background-color: #c0392b;
     }
     .video-container {
-      display: none; /* Спочатку приховано */
+      display: none;
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
@@ -127,7 +123,7 @@
       <!-- Кнопка розгортання відео -->
       <button id="learnBtn" class="btn-main" onclick="showVideo()">ПРОДОВЖИТИ НАВЧАННЯ ▶️</button>
 
-      <!-- Блок із відео, який з'являється при натисканні -->
+      <!-- Плеєр YouTube -->
       <div id="videoContainer" class="video-container">
         <iframe id="youtubeIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
@@ -152,14 +148,9 @@
     }
 
     function showVideo() {
-      // Ховаємо кнопку
       document.getElementById('learnBtn').style.display = 'none';
-      
-      // Показываємо контейнер із відео
       const container = document.getElementById('videoContainer');
       container.style.display = 'block';
-      
-      // Підвантажуємо відео з автовідтворенням
       const iframe = document.getElementById('youtubeIframe');
       iframe.src = "https://www.youtube.com/embed/QHJaUqDSrpo?autoplay=1";
     }
