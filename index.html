@@ -65,6 +65,23 @@
       font-size: 16px;
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+      box-sizing: border-box;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
     .module-list {
       list-style: none;
@@ -102,7 +119,10 @@
     <div class="card">
       <h3>📖 02. Comprensión de lectura</h3>
       <p style="font-size: 13px; color: #555; margin-bottom: 16px;">Урок 2.1: Як швидко знаходити потрібну інформацію</p>
-      <button class="btn-main" onclick="startLesson()">ПРОДОВЖИТИ НАВЧАННЯ ▶️</button>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/QHJaUqDSrpo" allowfullscreen></iframe>
+      </div>
+      <a class="btn-main" href="https://www.youtube.com/watch?v=QHJaUqDSrpo&si=303EJIBR6mR9-Pa4" target="_blank">ПРОДОВЖИТИ НАВЧАННЯ ▶️</a>
     </div>
 
     <div class="card">
@@ -121,14 +141,6 @@
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
-    }
-
-    function startLesson() {
-      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.showAlert) {
-        window.Telegram.WebApp.showAlert("Розпочинаємо урок 2.1!");
-      } else {
-        alert("Розпочинаємо урок 2.1!");
-      }
     }
   </script>
 </body>
