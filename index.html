@@ -66,6 +66,10 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
       box-sizing: border-box;
+      transition: background 0.2s;
+    }
+    .btn-main:active {
+      background-color: #c0392b;
     }
     .video-container {
       display: none;
@@ -89,12 +93,40 @@
       margin: 0;
     }
     .module-item {
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #f0f0f0;
       font-size: 14px;
+      cursor: pointer;
+      user-select: none;
     }
     .module-item:last-child {
       border-bottom: none;
+    }
+    .module-item:hover {
+      color: #d32f2f;
+    }
+    .module-content {
+      display: none;
+      background: #fafafa;
+      border-left: 3px solid #e74c3c;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.5;
+    }
+    .module-content h4 {
+      margin: 0 0 8px 0;
+      color: #d32f2f;
+      font-size: 14px;
+    }
+    .module-content ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .module-content li {
+      margin-bottom: 6px;
     }
   </style>
 </head>
@@ -120,10 +152,8 @@
       <h3>📖 02. Comprensión de lectura</h3>
       <p style="font-size: 13px; color: #555; margin-bottom: 16px;">Урок 2.1: Як швидко знаходити потрібну інформацію</p>
       
-      <!-- Кнопка розгортання відео -->
       <button id="learnBtn" class="btn-main" onclick="showVideo()">ПРОДОВЖИТИ НАВЧАННЯ ▶️</button>
 
-      <!-- Плеєр YouTube -->
       <div id="videoContainer" class="video-container">
         <iframe id="youtubeIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
@@ -132,7 +162,18 @@
     <div class="card">
       <h3>📚 Модулі курсу</h3>
       <ul class="module-list">
-        <li class="module-item">🎯 01. Знайомство з DELE A2</li>
+        <li class="module-item" onclick="toggleModule('mod1')">
+          🎯 01. Знайомство з DELE A2 ▾
+          <div id="mod1" class="module-content">
+            <h4>Що входить до матеріалів DELE A2:</h4>
+            <ul>
+              <li><b>Розуміння тексту (Comprensión de lectura):</b> завдання на розуміння коротких текстів та оголошень.</li>
+              <li><b>Аудіювання (Comprensión auditiva):</b> прослуховування діалогів та монологів з повсякденного життя.</li>
+              <li><b>Письмова частина (Expresión e interacción escritas):</b> написання коротких повідомлень, листів чи есе.</li>
+              <li><b>Усна частина (Expresión e interacción orales):</b> монолог на обрану тему, опис фотографії та діалог з екзаменатором.</li>
+            </ul>
+          </div>
+        </li>
         <li class="module-item">📖 02. Comprensión de lectura</li>
         <li class="module-item">🎧 03. Comprensión auditiva</li>
         <li class="module-item">✍️ 04. Expresión escrita</li>
@@ -153,6 +194,15 @@
       container.style.display = 'block';
       const iframe = document.getElementById('youtubeIframe');
       iframe.src = "https://www.youtube.com/embed/QHJaUqDSrpo?autoplay=1";
+    }
+
+    function toggleModule(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === "block") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+      }
     }
   </script>
 </body>
