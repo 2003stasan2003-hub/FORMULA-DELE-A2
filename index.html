@@ -66,14 +66,18 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
       box-sizing: border-box;
+      transition: background 0.2s;
+    }
+    .btn-main:active {
+      background-color: #c0392b;
     }
     .video-container {
+      display: none; /* Спочатку приховано */
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 10px;
-      margin-bottom: 12px;
     }
     .video-container iframe {
       position: absolute;
@@ -119,10 +123,14 @@
     <div class="card">
       <h3>📖 02. Comprensión de lectura</h3>
       <p style="font-size: 13px; color: #555; margin-bottom: 16px;">Урок 2.1: Як швидко знаходити потрібну інформацію</p>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/QHJaUqDSrpo" allowfullscreen></iframe>
+      
+      <!-- Кнопка розгортання відео -->
+      <button id="learnBtn" class="btn-main" onclick="showVideo()">ПРОДОВЖИТИ НАВЧАННЯ ▶️</button>
+
+      <!-- Блок із відео, який з'являється при натисканні -->
+      <div id="videoContainer" class="video-container">
+        <iframe id="youtubeIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
-      <a class="btn-main" href="https://www.youtube.com/watch?v=QHJaUqDSrpo&si=303EJIBR6mR9-Pa4" target="_blank">ПРОДОВЖИТИ НАВЧАННЯ ▶️</a>
     </div>
 
     <div class="card">
@@ -141,6 +149,19 @@
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.expand();
+    }
+
+    function showVideo() {
+      // Ховаємо кнопку
+      document.getElementById('learnBtn').style.display = 'none';
+      
+      // Показываємо контейнер із відео
+      const container = document.getElementById('videoContainer');
+      container.style.display = 'block';
+      
+      // Підвантажуємо відео з автовідтворенням
+      const iframe = document.getElementById('youtubeIframe');
+      iframe.src = "https://www.youtube.com/embed/QHJaUqDSrpo?autoplay=1";
     }
   </script>
 </body>
