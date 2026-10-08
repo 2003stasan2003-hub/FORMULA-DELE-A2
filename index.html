@@ -66,10 +66,33 @@
       cursor: pointer;
       box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
       box-sizing: border-box;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.1s;
     }
     .btn-main:active {
       background-color: #c0392b;
+      transform: scale(0.98);
+    }
+    .btn-chat {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #ff4b4b 0%, #d32f2f 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.35);
+      box-sizing: border-box;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+    .btn-chat:active {
+      transform: scale(0.98);
+      background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
     }
     .video-container {
       display: none;
@@ -130,6 +153,65 @@
     }
     .module-content li {
       margin-bottom: 6px;
+    }
+
+    /* Стилі вікна онлайн-чату */
+    .chat-container {
+      display: none;
+      margin-top: 14px;
+      border-top: 2px solid #f0f0f0;
+      padding-top: 14px;
+    }
+    .chat-box {
+      height: 200px;
+      overflow-y: auto;
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .msg {
+      max-width: 80%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .msg-bot {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      align-self: flex-start;
+      color: #333;
+    }
+    .msg-user {
+      background-color: #e74c3c;
+      color: #ffffff;
+      align-self: flex-end;
+    }
+    .chat-input-wrapper {
+      display: flex;
+      gap: 6px;
+    }
+    .chat-input-wrapper input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+    }
+    .chat-input-wrapper button {
+      background-color: #d32f2f;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -229,7 +311,7 @@
             <ul>
               <li><b>Дикція та вимова:</b> чітке й правильне вимовляння звуків і слів.</li>
               <li><b>Голос і тон:</b> гучність, висота, тембр і модуляція, що допомагають передати емоції та зміст.</li>
-              <li><b>Флуідність (плавність):</b> здатність говорить без зайвих пауз і запинок.</li>
+              <li><b>Флуідність (плавність):</b> здатність говорити без зайвих пауз і запинок.</li>
               <li><b>Невербальні засоби:</b> жести, міміка та погляд, які доповнюють усне повідомлення.</li>
               <li><b>Когерентність та структура:</b> логічна послідовність викладу думок, щоб слухач міг зрозуміти повідомлення.</li>
             </ul>
@@ -242,6 +324,18 @@
           </div>
         </li>
       </ul>
+
+      <button class="btn-chat" onclick="toggleChat()">💬 Спілкування</button>
+
+      <div id="chatSection" class="chat-container">
+        <div id="chatBox" class="chat-box">
+          <div class="msg msg-bot">¡Hola! Я твій інтерактивний помічник з DELE A2. Постав мені будь-яке запитання або напиши фразу іспанською!</div>
+        </div>
+        <div class="chat-input-wrapper">
+          <input type="text" id="userInput" placeholder="Напишіть запитання..." onkeypress="handleKeyPress(event)">
+          <button onclick="sendMessage()">Надіслати</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -265,6 +359,48 @@
         el.style.display = "none";
       } else {
         el.style.display = "block";
+      }
+    }
+
+    function toggleChat() {
+      const chatSection = document.getElementById('chatSection');
+      if (chatSection.style.display === "block") {
+        chatSection.style.display = "none";
+      } else {
+        chatSection.style.display = "block";
+        document.getElementById('userInput').focus();
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatBox = document.getElementById('chatBox');
+
+      // Додаємо повідомлення користувача
+      const userMsg = document.createElement('div');
+      userMsg.className = 'msg msg-user';
+      userMsg.textContent = text;
+      chatBox.appendChild(userMsg);
+
+      input.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Автоматична відповідь бота
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg msg-bot';
+        botMsg.textContent = "Чудове запитання! Я обробляю твоє звернення щодо іспиту DELE A2. Напиши ще, якщо потрібна допомога з граматикою чи лексикою!";
+        chatBox.appendChild(botMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
       }
     }
   </script>
